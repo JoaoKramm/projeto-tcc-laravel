@@ -19,7 +19,7 @@ class User extends Authenticatable
         'cpf',
         'nome',
         'email',
-        'password', // Agora é 'password'
+        'password',
         'celular',
         'data_nascimento',
     ];
@@ -30,7 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', // Agora é 'password'
+        'password',
         'remember_token',
     ];
 }
