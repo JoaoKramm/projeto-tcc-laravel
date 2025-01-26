@@ -1,0 +1,448 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F2EFDF;
+    /* Bege Claro */
+    margin: 0;
+    padding: 0;
+    color: #23260F;
+    /* Preto Amarronzado */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background-color: #607EA6; /* Azul Acinzentado */
+    color: #F2EFDF; /* Bege Claro */
+    padding: 20px 0;
+    /* Removido text-align: center; para evitar conflito com o alinhamento do flexbox */
+}
+
+header .header-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribuindo o espaço entre os elementos */
+    padding: 0 20px; /* Adicionado padding para alinhar o conteúdo com o restante da página */
+}
+
+header .logo-space {
+    margin-right: 20px;
+    flex-shrink: 0; /* Evita que o logo seja comprimido */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    flex-grow: 1; /* Ocupa todo o espaço restante */
+    text-align: center; /* Centraliza o título */
+}
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .form-group input {
+        width: 90%;
+    }
+}
+
+.logout-button {
+    background-color: #dc3545; /* Vermelho */
+    color: #F2EFDF;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px; /* Espaço entre o título e o botão */
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #c82333; /* Vermelho mais escuro */
+}
+
+main {
+    padding: 30px 0;
+    flex: 1;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #607EA6;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #3B4013;
+}
+
+.form-group input {
+    width: 93%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #607EA6;
+    color: #F2EFDF;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #9BA7BF;
+}
+
+.links {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.links a {
+    margin: 0 10px;
+    color: #3B4013;
+    text-decoration: none;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+.info-blocks {
+    background-color: #e9ecef65;
+    padding: 30px 0;
+    margin-top: 40px;
+}
+
+.info-block {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #e9ecef96;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info-block h3 {
+    color: #3B4013;
+}
+
+footer {
+    background-color: #3B4013;
+    color: #F2EFDF;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+    .info-blocks .container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .info-block {
+        flex: 0 0 calc(33% - 20px);
+    }
+}
+
+@media (max-width: 767px) {
+    .login-container {
+        margin: 20px auto;
+    }
+
+    .info-block {
+        margin-bottom: 20px;
+    }
+}
+
+
+.register-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.register-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #607EA6;
+}
+
+.form-group input,
+.form-group select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.button.secondary {
+    background-color: #9BA7BF;
+}
+
+.button.secondary:hover {
+    background-color: #607EA6;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    /* Centraliza os botões */
+    margin-top: 20px;
+    /* Espaçamento acima dos botões */
+    gap: 15px;
+}
+
+/* Para telas menores que 767px */
+@media (max-width: 767px) {
+
+    .button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.error {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.register-container .button {
+    width: 150px;
+    /* Mantém a largura fixa para os botões */
+    padding: 12px 25px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    /* Pode remover se não precisar de espaço abaixo dos botões */
+    font-size: 1.1rem;
+    box-sizing: border-box;
+}
+
+.register-container .form-group.button-group {
+    text-align: center;
+    /* Centraliza os botões horizontalmente */
+    display: flex;
+    /* Torna o contêiner flexível */
+    justify-content: center;
+    /* Centraliza os itens flexíveis (botões) */
+    flex-wrap: wrap;
+    /* Permite que os botões quebrem para a próxima linha se necessário */
+}
+
+@media (max-width: 767px) {
+    .register-container .button {
+        width: 90%;
+        /* Em telas menores, os botões ocupam mais largura */
+        margin-right: 0;
+        /* Remove a margem direita */
+        margin-bottom: 10px;
+        /* Adiciona margem inferior para separar os botões */
+    }
+
+    .register-container .form-group.button-group {
+        flex-direction: column;
+        /* Empilha os botões verticalmente */
+        align-items: center;
+        /* Centraliza os botões verticalmente */
+    }
+}
+
+.forgot-password-container,
+.reset-password-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    /* Reduzindo para 500px */
+    margin: 0 auto;
+}
+
+
+.forgot-password-container h2,
+.reset-password-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #607EA6;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    /* Adicionando quebra de linha */
+}
+
+.option-block {
+    flex: 0 0 48%;
+    /* Mantendo a largura relativa */
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-sizing: border-box;
+    /* Adicionando box-sizing */
+}
+
+.option-block:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-color: #607EA6;
+}
+
+.option-block h3 {
+    color: #607EA6;
+    margin-top: 0;
+}
+
+.option-block p {
+    font-size: 0.9rem;
+    color: #23260F;
+}
+
+.option-block input[type="radio"] {
+    display: none;
+}
+
+/* ... outras regras ... */
+
+
+
+.main-blocks {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.block {
+    flex: 0 0 calc(23% - 10px);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    color: #F2EFDF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.block h3 {
+    margin-top: 0;
+}
+
+.block-1 {
+    background-color: #0d6efd;
+}
+
+.block-2 {
+    background-color: #6610f2;
+}
+
+.block-3 {
+    background-color: #20c997;
+}
+
+.block-4 {
+    background-color: #dc3545;
+}
+
+.block .button {
+    display: inline-block;
+    width: auto;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+/* Ícone de Perfil */
+.profile-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 30px;
+    color: #607EA6;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* Responsividade para os blocos */
+@media (max-width: 767px) {
+    .main-blocks {
+        flex-direction: column;
+    }
+
+    .block {
+        flex: 0 0 100%;
+    }
+}
+
+/* Responsividade para o ícone de perfil */
+@media (max-width: 480px) {
+    .profile-icon {
+        font-size: 24px;
+    }
+}
+
+/* ... outras regras ... */
+
+.profile-button {
+    background-color: #607EA6; /* Azul Acinzentado */
+    color: #F2EFDF;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px; /* Espaço entre o título e o botão */
+    font-size: 1rem;
+    text-decoration: none; /* Remove o sublinhado do link */
+    transition: background-color 0.3s ease;
+}
+
+.profile-button:hover {
+    background-color: #9BA7BF; /* Azul Acinzentado mais claro */
+}
+/* ... outras regras ... */
+
