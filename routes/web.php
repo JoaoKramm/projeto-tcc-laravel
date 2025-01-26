@@ -26,9 +26,14 @@ Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logou
 
 // Rota para perfil
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->middleware('auth')->name('profile');
+Route::put('/profile/{user}', [App\Http\Controllers\ProfileController::class, 'update'])->middleware('auth')->name('profile.update');
 
 // Rotas de autenticação
 Auth::routes();
+
+// Rotas de autenticação personalizadas
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
 
 // Rota para a página de redefinição de senha (customizada)
 Route::get('/password/reset', function () {

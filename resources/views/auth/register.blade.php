@@ -9,7 +9,12 @@
 <body>
     <header>
         <div class="container">
-            <h1>Sistema de Inscrições de Camaquã</h1>
+            <div class="header-content">
+                <div class="logo-space">
+                    <img src="{{ asset('images/logo-camaqua.png') }}" alt="Logo" width="80">
+                </div>
+                <div> <h1>Sistema de Inscrições de Camaquã</h1></div>
+            </div>
         </div>
     </header>
 
@@ -23,7 +28,7 @@
 
                     <div class="form-group">
                         <label for="cpf">CPF:</label>
-                        <input type="text" name="cpf" id="cpf" value="{{ old('cpf') }}" required>
+                        <input type="text" name="cpf" id="cpf" value="{{ old('cpf') }}" required placeholder="Digite seu CPF (somente números)">
                         @error('cpf')
                             <div class="error">{{ $message }}</div>
                         @enderror
@@ -31,7 +36,7 @@
 
                     <div class="form-group">
                         <label for="name">Nome Completo:</label>
-                        <input type="text" name="name" id="name" value="{{ old('name') }}" required>
+                        <input type="text" name="name" id="name" value="{{ old('name') }}" required placeholder="Digite seu nome completo">
                         @error('name')
                             <div class="error">{{ $message }}</div>
                         @enderror
@@ -39,7 +44,7 @@
 
                     <div class="form-group">
                         <label for="email">E-mail:</label>
-                        <input type="email" name="email" id="email" value="{{ old('email') }}" required>
+                        <input type="email" name="email" id="email" value="{{ old('email') }}" required placeholder="Digite seu e-mail">
                         @error('email')
                             <div class="error">{{ $message }}</div>
                         @enderror
@@ -47,7 +52,7 @@
 
                     <div class="form-group">
                         <label for="password">Senha:</label>
-                        <input type="password" name="password" id="password" required>
+                        <input type="password" name="password" id="password" required placeholder="Digite uma senha">
                         @error('password')
                             <div class="error">{{ $message }}</div>
                         @enderror
@@ -55,7 +60,7 @@
 
                     <div class="form-group">
                         <label for="password_confirmation">Confirme a Senha:</label>
-                        <input type="password" name="password_confirmation" id="password_confirmation" required>
+                        <input type="password" name="password_confirmation" id="password_confirmation" required placeholder="Confirme a senha">
                     </div>
 
                     <div class="form-group">
@@ -68,7 +73,7 @@
 
                     <div class="form-group">
                         <label for="phone">Telefone:</label>
-                        <input type="text" name="phone" id="phone" value="{{ old('phone') }}" required>
+                        <input type="text" name="phone" id="phone" value="{{ old('phone') }}" required placeholder="Digite seu telefone (somente números)">
                         @error('phone')
                             <div class="error">{{ $message }}</div>
                         @enderror
@@ -77,7 +82,7 @@
                     <div class="form-group button-group">
                         <button type="submit" class="button">Cadastrar</button>
                         <button type="reset" class="button secondary">Limpar</button>
-                         <a href="{{ route('home') }}" class="button secondary back-button">Voltar</a>
+                        <a href="{{ route('home') }}" class="button secondary back-button">Voltar</a>
                     </div>
                 </form>
             </div>
