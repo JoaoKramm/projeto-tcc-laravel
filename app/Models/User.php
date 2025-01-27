@@ -22,6 +22,7 @@ class User extends Authenticatable
         'password',
         'celular',
         'data_nascimento',
+        'tipo', // Adicionado para diferenciar tipos de usuário
     ];
 
     /**
@@ -33,4 +34,10 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    // Adicionando o relacionamento com Inscricao
+    public function inscricoes()
+    {
+        return $this->hasMany(Inscricao::class);
+    }
 }
