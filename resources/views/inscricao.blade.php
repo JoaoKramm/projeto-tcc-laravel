@@ -1,0 +1,112 @@
+@extends('layout')
+
+@section('content')
+<div class="container">
+    <h2>Formulário de Inscrição</h2>
+    <form id="inscricao-form" method="POST" action="#">
+        @csrf
+
+        <div id="etapa-1" class="etapa">
+            <h3>Dados Pessoais</h3>
+
+            <input type="hidden" name="escola_id_1" value="{{ $escola->id }}">
+            <input type="hidden" name="quadro_vaga_id" value="{{ $quadroVaga->id }}">
+
+            <div class="form-group">
+                <label for="nome_responsavel">Nome do Responsável:</label>
+                <input type="text" name="nome_responsavel" id="nome_responsavel" class="form-control" value="{{ $user->nome }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="cpf_responsavel">CPF do Responsável:</label>
+                <input type="text" name="cpf_responsavel" id="cpf_responsavel" class="form-control" value="{{ $user->cpf }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="nome_crianca">Nome da Criança:</label>
+                <input type="text" name="nome_crianca" id="nome_crianca" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="data_nascimento_crianca">Data de Nascimento da Criança:</label>
+                <input type="date" name="data_nascimento_crianca" id="data_nascimento_crianca" class="form-control">
+            </div>
+            <div class="form-group">
+                 <label for="modalidade">Modalidade:</label>
+                 <input type="text" name="modalidade" id="modalidade" class="form-control" readonly>
+            </div>
+            <div class="form-group button-group">
+                <button type="button" class="btn btn-primary" onclick="avancarEtapa(1)">Avançar</button>
+            </div>
+        </div>
+
+        <div id="etapa-2" class="etapa" style="display: none;">
+            <h3>Endereço</h3>
+            <div class="form-group">
+                <label for="cep_responsavel">CEP:</label>
+                <input type="text" name="cep_responsavel" id="cep_responsavel" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="endereco_responsavel">Endereço:</label>
+                <input type="text" name="endereco_responsavel" id="endereco_responsavel" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="numero_casa_responsavel">Número:</label>
+                <input type="text" name="numero_casa_responsavel" id="numero_casa_responsavel" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="bairro_responsavel">Bairro:</label>
+                <input type="text" name="bairro_responsavel" id="bairro_responsavel" class="form-control">
+            </div>
+            <div class="form-group button-group">
+                <button type="button" class="btn btn-primary" onclick="voltarEtapa(2)">Voltar</button>
+                <button type="button" class="btn btn-primary" onclick="avancarEtapa(2)">Avançar</button>
+            </div>
+        </div>
+
+        <div id="etapa-3" class="etapa" style="display: none;">
+            <h3>Documentos</h3>
+            <div class="form-group">
+                <label for="certidao_nascimento">Certidão de Nascimento:</label>
+                <input type="file" name="certidao_nascimento" id="certidao_nascimento" class="form-control-file">
+            </div>
+            <div class="form-group">
+                <label for="comprovante_residencia">Comprovante de Residência:</label>
+                <input type="file" name="comprovante_residencia" id="comprovante_residencia" class="form-control-file">
+            </div>
+            <div class="form-group button-group">
+                <button type="button" class="btn btn-primary" onclick="voltarEtapa(3)">Voltar</button>
+                <button type="button" class="btn btn-primary" onclick="avancarEtapa(3)">Avançar</button>
+            </div>
+        </div>
+
+        <div id="etapa-4" class="etapa" style="display: none;">
+            <h3>Definir Instituição</h3>
+            <div class="form-group">
+                <label for="escola_id_1">1ª Opção de Escola:</label>
+                <select name="escola_id_1" id="escola_id_1" class="form-control">
+                    @foreach ($escolas as $escola)
+                        <option value="{{ $escola->id }}">{{ $escola->nome }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="escola_id_2">2ª Opção de Escola (opcional):</label>
+                <select name="escola_id_2" id="escola_id_2" class="form-control">
+                    <option value="">Selecione uma escola (opcional)</option>
+                    @foreach ($escolas as $escola)
+                        <option value="{{ $escola->id }}">{{ $escola->nome }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group button-group">
+                <button type="button" class="btn btn-primary" onclick="voltarEtapa(4)">Voltar</button>
+                <button type="button" class="btn btn-success" onclick="enviarInscricao()">Enviar Solicitação</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="button-group">
+        <a href="{{ route('vagas') }}" class="btn btn-primary">Voltar para Vagas</a>
+    </div>
+</div>
+
+<script src="{{ asset('resources\js\inscricao.js') }}"></script>
+@endsection

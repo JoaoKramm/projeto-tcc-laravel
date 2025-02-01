@@ -1,4 +1,3 @@
-import './bootstrap';
 
 function avancarEtapa(etapaAtual) {
     document.getElementById('etapa-' + etapaAtual).style.display = 'none';

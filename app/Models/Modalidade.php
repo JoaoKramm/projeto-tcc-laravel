@@ -17,6 +17,7 @@ class Modalidade extends Model
     {
         return $this->belongsToMany(Escola::class);
     }
+
     public function quadroVagas()
     {
         return $this->hasMany(QuadroVaga::class);

@@ -35,6 +35,13 @@ Auth::routes();
 Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
 
+// Rotas para vagas 
+Route::get('/vagas', [App\Http\Controllers\VagasController::class, 'index'])->middleware('auth')->name('vagas');
+
+// Rotas para inscrição 
+Route::get('/inscricao/{escola_id}/{quadro_vaga_id}', [App\Http\Controllers\InscricaoController::class, 'create'])->middleware('auth')->name('inscricao.create');
+Route::post('/inscricao', [App\Http\Controllers\InscricaoController::class, 'store'])->middleware('auth')->name('inscricao.store');
+
 // Rota para a página de redefinição de senha (customizada)
 Route::get('/password/reset', function () {
     return view('auth.passwords.reset');

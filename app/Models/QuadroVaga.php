@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class QuadroVaga extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'escola_id',
         'modalidade_id',
@@ -33,3 +32,4 @@ class QuadroVaga extends Model
         return $this->hasMany(Inscricao::class);
     }
 }
+

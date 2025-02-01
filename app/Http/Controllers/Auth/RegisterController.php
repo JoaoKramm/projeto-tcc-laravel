@@ -7,106 +7,90 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request; // Importe a classe Request
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    protected $redirectTo = '/dashboard'; // Redireciona para o dashboard após o registro
-
-    public function __construct()
-    {
-        //$this->middleware('guest');
-    }
+    protected $redirectTo = '/dashboard';
 
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'cpf' => ['required', 'string', 'size:11', 'unique:users', function ($attribute, $value, $fail) {
-                // Validação de CPF
-                $value = preg_replace('/[^0-9]/', '', $value);
+        $data['cpf'] = preg_replace('/[^0-9]/', '', $data['cpf']); // Limpa CPF antes de validar
+        $data['phone'] = preg_replace('/[^0-9]/', '', $data['phone']); // Limpa telefone antes de validar
 
-                if (!preg_match('/^(\d)\1+$/', $value) && $this->validaCPF($value)) {
-                   return true;
-                } else {
-                    $fail('O CPF informado é inválido.');
+        return Validator::make($data, [
+            'cpf' => [
+                'required', 
+                'string', 
+                'size:11', 
+                'unique:users',
+                function ($attribute, $value, $fail) {
+                    if (!$this->validaCPF($value)) {
+                        $fail('O CPF informado é inválido.');
+                    }
                 }
-            }],
+            ],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'birth_date' => ['required', 'date'],
-            'phone' => ['required', 'string', 'min:10', 'max:15', function ($attribute, $value, $fail) {
-                // Validação de telefone
-                $value = preg_replace('/[^0-9]/', '', $value);
-
-                if (strlen($value) >= 10 && strlen($value) <= 15) {
-                    return true;
-                } else {
-                     $fail('O telefone informado é inválido.');
+            'phone' => [
+                'required', 
+                'string', 
+                'min:10', 
+                'max:15', 
+                function ($attribute, $value, $fail) {
+                    if (strlen($value) < 10 || strlen($value) > 15) {
+                        $fail('O telefone informado é inválido.');
+                    }
                 }
-            }],
+            ],
         ]);
     }
 
     protected function create(array $data)
     {
-        // Remover caracteres especiais do CPF
-        $cpf = preg_replace('/[^0-9]/', '', $data['cpf']);
-
-        // Remover caracteres especiais do telefone
-        $phone = preg_replace('/[^0-9]/', '', $data['phone']);
-
         return User::create([
-            'cpf' => $cpf, // Salva o CPF sem caracteres especiais
-            'nome' => $data['name'],
+            'cpf' => preg_replace('/[^0-9]/', '', $data['cpf']),
+            'nome' => $data['name'], 
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'data_nascimento' => $data['birth_date'],
-            'celular' => $phone, // Salva o telefone sem caracteres especiais
+            'celular' => preg_replace('/[^0-9]/', '', $data['phone']),
+            'tipo' => 'responsavel',
         ]);
     }
 
-        /**
-     * The user has been registered.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
     protected function registered(Request $request, $user)
     {
         return redirect($this->redirectTo);
     }
 
-    // Função para validar CPF
     private function validaCPF($cpf) {
+        // Remove caracteres não numéricos
+        $cpf = preg_replace('/[^0-9]/', '', $cpf);
 
-        // Extrai somente os números
-        $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
-            
-        // Verifica se foi informado todos os digitos corretamente
-        if (strlen($cpf) != 11) {
+        // Verifica se o CPF tem 11 dígitos e não é uma sequência repetida
+        if (strlen($cpf) != 11 || preg_match('/^(\d)\1+$/', $cpf)) {
             return false;
         }
 
-        // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
-        if (preg_match('/(\d)\1{10}/', $cpf)) {
-            return false;
-        }
-
-        // Faz o calculo para validar o CPF
-        for ($t = 9; $t < 11; $t++) {
-            for ($d = 0, $c = 0; $c < $t; $c++) {
-                $d += $cpf[$c] * (($t + 1) - $c);
+        // Cálculo dos dígitos verificadores
+        for ($i = 9; $i < 11; $i++) {
+            $soma = 0;
+            for ($j = 0; $j < $i; $j++) {
+                $soma += $cpf[$j] * (($i + 1) - $j);
             }
-            $d = ((10 * $d) % 11) % 10;
-            if ($cpf[$c] != $d) {
+
+            $resto = $soma % 11;
+            $dv = ($resto < 2) ? 0 : 11 - $resto;
+
+            if ($cpf[$i] != $dv) {
                 return false;
             }
         }
         return true;
-
     }
 }

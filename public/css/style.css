@@ -19,55 +19,87 @@ body {
 }
 
 header {
-    background-color: #607EA6; /* Azul Acinzentado */
-    color: #F2EFDF; /* Bege Claro */
-    padding: 20px 0;
-    /* Removido text-align: center; para evitar conflito com o alinhamento do flexbox */
+    background-color: #607EA6;
+    /* Azul Acinzentado */
+    color: #F2EFDF;
+    /* Bege Claro */
+    padding: 0;
 }
 
-header .header-content{
+header .header-content {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Distribuindo o espaço entre os elementos */
-    padding: 0 20px; /* Adicionado padding para alinhar o conteúdo com o restante da página */
+    /* Centraliza verticalmente */
+    justify-content: space-between;
+    /* Distribuindo o espaço entre os elementos */
+    padding: 20px 20px;
 }
 
 header .logo-space {
     margin-right: 20px;
-    flex-shrink: 0; /* Evita que o logo seja comprimido */
+    flex-shrink: 0;
+    /* Evita que o logo seja comprimido */
 }
 
 header h1 {
     margin: 0;
     font-size: 2.5rem;
-    flex-grow: 1; /* Ocupa todo o espaço restante */
-    text-align: center; /* Centraliza o título */
+    flex-grow: 1;
+    /* Ocupa todo o espaço restante */
+    text-align: center;
 }
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 1.8rem;
-    }
 
-    .form-group input {
-        width: 90%;
-    }
+/* Centraliza o texto do botão Perfil */
+.profile-button {
+    display: flex;
+    align-items: center;
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espaçamento entre os botões */
 }
 
 .logout-button {
-    background-color: #dc3545; /* Vermelho */
+    background-color: #dc3545;
+    /* Vermelho */
+    color: #F2EFDF;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    /* Borda mais arredondada */
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+    /* Vermelho mais escuro no hover */
+}
+
+.profile-button {
+    background-color: #607EA6;
+    /* Azul Acinzentado */
     color: #F2EFDF;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 20px; /* Espaço entre o título e o botão */
     font-size: 1rem;
+    text-decoration: none;
+    /* Remove o sublinhado do link */
     transition: background-color 0.3s ease;
 }
 
-.logout-button:hover {
-    background-color: #c82333; /* Vermelho mais escuro */
+.profile-button:hover {
+    background-color: #9BA7BF;
+    /* Azul Acinzentado mais claro */
 }
+
+
 
 main {
     padding: 30px 0;
@@ -108,9 +140,8 @@ main {
 }
 
 .button {
-    display: block;
-    width: 100%;
-    padding: 10px;
+    display: inline-block;
+    padding: 10px 20px;
     background-color: #607EA6;
     color: #F2EFDF;
     border: none;
@@ -118,10 +149,24 @@ main {
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s ease;
+    text-decoration: none;
+    /* Removendo sublinhado dos links */
 }
 
 .button:hover {
     background-color: #9BA7BF;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Azul padrão do Bootstrap */
+    border-color: #007bff; /* Cor da borda (opcional) */
+    color: #fff; /* Cor do texto (branco) */
+}
+
+/* Para mudar a cor no hover (quando o mouse passa por cima) */
+.btn-primary:hover {
+    background-color: #0069d9; /* Azul um pouco mais escuro */
+    border-color: #0062cc;
 }
 
 .links {
@@ -193,6 +238,46 @@ footer p {
     }
 }
 
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem;
+        margin-top: 0; /* Reduz a margem superior em telas menores */
+    }
+
+    .form-group input {
+        width: 90%;
+    }
+
+    .header-content {
+        padding: 10px; /* Reduz o padding em telas menores */
+    }
+
+    .header-buttons {
+        display: flex;
+        align-items: center;
+        gap: 20px; /* Espaçamento entre os botões */
+    }
+
+    .logo-space {
+        margin-right: 10px; /* Reduz a margem em telas menores */
+    }
+
+    /* Força os botões a ficarem em uma linha em telas pequenas */
+    .header-content > a,
+    .header-content > form {
+        flex-basis: 100%;
+        text-align: center;
+        margin-left: 0;
+    }
+
+    .profile-button,
+    .logout-button {
+        margin-left: 0;
+        margin-top: 10px;
+        width: auto;
+        display: inline-block;
+    }
+}
 
 .register-container {
     background-color: #fff;
@@ -228,20 +313,9 @@ footer p {
 
 .button-group {
     display: flex;
-    justify-content: center;
-    /* Centraliza os botões */
-    margin-top: 20px;
-    /* Espaçamento acima dos botões */
-    gap: 15px;
-}
-
-/* Para telas menores que 767px */
-@media (max-width: 767px) {
-
-    .button-group {
-        flex-direction: column;
-        align-items: center;
-    }
+    justify-content: center; /* Centraliza os botões */
+    margin-top: 20px; /* Espaçamento acima dos botões */
+    gap: 15px; /* Espaço entre os botões */
 }
 
 .error {
@@ -270,24 +344,6 @@ footer p {
     /* Centraliza os itens flexíveis (botões) */
     flex-wrap: wrap;
     /* Permite que os botões quebrem para a próxima linha se necessário */
-}
-
-@media (max-width: 767px) {
-    .register-container .button {
-        width: 90%;
-        /* Em telas menores, os botões ocupam mais largura */
-        margin-right: 0;
-        /* Remove a margem direita */
-        margin-bottom: 10px;
-        /* Adiciona margem inferior para separar os botões */
-    }
-
-    .register-container .form-group.button-group {
-        flex-direction: column;
-        /* Empilha os botões verticalmente */
-        align-items: center;
-        /* Centraliza os botões verticalmente */
-    }
 }
 
 .forgot-password-container,
@@ -350,10 +406,6 @@ footer p {
     display: none;
 }
 
-/* ... outras regras ... */
-
-
-
 .main-blocks {
     display: flex;
     justify-content: space-between;
@@ -375,11 +427,7 @@ footer p {
 }
 
 .block-1 {
-    background-color: #0d6efd;
-}
-
-.block-2 {
-    background-color: #6610f2;
+    background-color: #fd810d;
 }
 
 .block-3 {
@@ -387,7 +435,12 @@ footer p {
 }
 
 .block-4 {
-    background-color: #dc3545;
+    background-color: #358bdc;
+}
+
+.block-5 {
+    background-color: #5859b1e8;
+    /* Roxo */
 }
 
 .block .button {
@@ -426,26 +479,6 @@ footer p {
     }
 }
 
-/* ... outras regras ... */
-
-.profile-button {
-    background-color: #607EA6; /* Azul Acinzentado */
-    color: #F2EFDF;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 20px; /* Espaço entre o título e o botão */
-    font-size: 1rem;
-    text-decoration: none; /* Remove o sublinhado do link */
-    transition: background-color 0.3s ease;
-}
-
-.profile-button:hover {
-    background-color: #9BA7BF; /* Azul Acinzentado mais claro */
-}
-/* ... outras regras ... */
-
 .alert {
     padding: 15px;
     margin-bottom: 20px;
@@ -458,3 +491,90 @@ footer p {
     border-color: #d6e9c6;
     color: #3c763d;
 }
+
+
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-decoration: none;
+    /* Removendo sublinhado dos links */
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    color: #fff;
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.escola-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+/* Estilo para o ícone (opcional) */
+.toggle-vagas i {
+    margin-left: 5px;
+}
+
+/*Para a responsividade do botão inscreva-se*/
+.btn-container {
+    text-align: right; /* Alinhar o botão à direita */
+    margin-top: -28px; /* Ajustar a margem superior para subir o botão */
+}
+

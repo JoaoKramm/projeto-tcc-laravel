@@ -11,9 +11,9 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo-space">
-                    <img src="{{ asset('images/logo-camaqua.png') }}" alt="Logo" width="80">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" width="80"> 
                 </div>
-                <div> <h1>Sistema de Inscrições de Camaquã</h1></div>
+                <h1>Sistema de Inscrições de Camaquã</h1>
             </div>
         </div>
     </header>
