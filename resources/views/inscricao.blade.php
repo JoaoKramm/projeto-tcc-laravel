@@ -29,8 +29,8 @@
                 <input type="date" name="data_nascimento_crianca" id="data_nascimento_crianca" class="form-control">
             </div>
             <div class="form-group">
-                 <label for="modalidade">Modalidade:</label>
-                 <input type="text" name="modalidade" id="modalidade" class="form-control" readonly>
+                <label for="modalidade">Modalidade:</label>
+                <input type="text" name="modalidade" id="modalidade" class="form-control" readonly>
             </div>
             <div class="form-group button-group">
                 <button type="button" class="btn btn-primary" onclick="avancarEtapa(1)">Avançar</button>
@@ -56,26 +56,30 @@
                 <input type="text" name="bairro_responsavel" id="bairro_responsavel" class="form-control">
             </div>
             <div class="form-group button-group">
-                <button type="button" class="btn btn-primary" onclick="voltarEtapa(2)">Voltar</button>
-                <button type="button" class="btn btn-primary" onclick="avancarEtapa(2)">Avançar</button>
+                <button type="button" class="btn btn-secondary" onclick="voltarEtapa(2)">Voltar</button>
+                <button type="button" class="btn btn-primary" id="avancar-etapa-2" onclick="avancarEtapa(2)">Avançar</button>
             </div>
         </div>
 
         <div id="etapa-3" class="etapa" style="display: none;">
-            <h3>Documentos</h3>
-            <div class="form-group">
-                <label for="certidao_nascimento">Certidão de Nascimento:</label>
-                <input type="file" name="certidao_nascimento" id="certidao_nascimento" class="form-control-file">
-            </div>
-            <div class="form-group">
-                <label for="comprovante_residencia">Comprovante de Residência:</label>
-                <input type="file" name="comprovante_residencia" id="comprovante_residencia" class="form-control-file">
-            </div>
-            <div class="form-group button-group">
-                <button type="button" class="btn btn-primary" onclick="voltarEtapa(3)">Voltar</button>
-                <button type="button" class="btn btn-primary" onclick="avancarEtapa(3)">Avançar</button>
-            </div>
-        </div>
+    <h3>Documentos</h3>
+    <div class="form-group">
+        <label for="certidao_nascimento" class="file-upload-label">
+            <span>Escolher Arquivo da Certidão de Nascimento</span>
+        </label>
+        <input type="file" name="certidao_nascimento" id="certidao_nascimento" class="form-control-file">
+    </div>
+    <div class="form-group">
+        <label for="comprovante_residencia" class="file-upload-label">
+            <span>Escolher Arquivo do Comprovante de Residência</span>
+        </label>
+        <input type="file" name="comprovante_residencia" id="comprovante_residencia" class="form-control-file">
+    </div>
+    <div class="form-group button-group">
+        <button type="button" class="btn btn-secondary" onclick="voltarEtapa(3)">Voltar</button>
+        <button type="button" class="btn btn-primary" onclick="avancarEtapa(3)">Avançar</button>
+    </div>
+</div>
 
         <div id="etapa-4" class="etapa" style="display: none;">
             <h3>Definir Instituição</h3>
@@ -97,16 +101,15 @@
                 </select>
             </div>
             <div class="form-group button-group">
-                <button type="button" class="btn btn-primary" onclick="voltarEtapa(4)">Voltar</button>
+                <button type="button" class="btn btn-secondary" onclick="voltarEtapa(4)">Voltar</button>
                 <button type="button" class="btn btn-success" onclick="enviarInscricao()">Enviar Solicitação</button>
             </div>
         </div>
     </form>
-
     <div class="button-group">
-        <a href="{{ route('vagas') }}" class="btn btn-primary">Voltar para Vagas</a>
+        <a href="{{ route('vagas') }}" class="btn btn-secondary">Voltar para Vagas</a>
     </div>
 </div>
 
-<script src="{{ asset('resources\js\inscricao.js') }}"></script>
+<script src="{{ asset('js/inscricao.js') }}"></script>
 @endsection

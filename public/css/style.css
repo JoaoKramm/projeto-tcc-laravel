@@ -578,3 +578,33 @@ footer p {
     margin-top: -28px; /* Ajustar a margem superior para subir o botão */
 }
 
+
+
+/* Estilos para os botões de upload de arquivos */
+.file-upload-label {
+    display: inline-block;
+    background-color: #ffffff; /* Azul Acinzentado - mesma cor dos botões */
+    color: #F2EFDF; /* Bege Claro - mesma cor do texto dos botões */
+    padding: 10px 15px;
+    border-radius: 5px; /* Borda arredondada */
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none; /* Remove o sublinhado */
+    transition: background-color 0.3s ease;
+    border: none; /* Remover borda padrão */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.file-upload-label:hover {
+    background-color: #9BA7BF; /* Tom mais claro no hover */
+}
+
+.file-upload-label span {
+    /* Estilo para o texto dentro do label */
+    margin-right: 5px; /* Espaço entre o texto e o nome do arquivo (opcional) */
+}
+
+/* Oculta o input file padrão */
+.form-control-file {
+    display: none;
+}
