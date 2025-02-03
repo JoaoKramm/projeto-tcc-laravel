@@ -43,11 +43,6 @@ function definirModalidade(idade, dataNasc, dataLimite) {
     }
 }
 
-function enviarInscricao() {
-    // Aqui você pode adicionar a lógica para enviar os dados do formulário via AJAX
-    alert('Inscrição enviada com sucesso!');
-}
-
 // Função para limpar os campos de endereço
 function limparEndereco() {
     $('#endereco_responsavel').val('');
@@ -61,6 +56,102 @@ function preencherEndereco(data) {
     // $('#cidade_responsavel').val(data.localidade); // Se você tiver um campo para cidade
     // $('#uf_responsavel').val(data.uf); // Se você tiver um campo para UF
     $('#numero_casa_responsavel').focus(); // Move o foco para o campo de número
+}
+
+function enviarInscricao() {
+    // Coleta os dados do formulário
+    var formData = new FormData(document.getElementById('inscricao-form'));
+
+    $.ajax({
+        url: "{{ route('inscricao.store') }}", // Substitua pela rota correta
+        type: "POST",
+        data: formData,
+        processData: false,  // Impede que o jQuery processe os dados (necessário para FormData)
+        contentType: false,  // Impede que o jQuery defina o Content-Type (necessário para FormData)
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Obtém o token CSRF do meta tag (se aplicável)
+        },
+        success: function(response) {
+            // Ação em caso de sucesso
+            alert("Inscrição enviada com sucesso!");
+            console.log(response);
+            // Exemplo: redirecionar para outra página
+            // window.location.href = "/outra-pagina";
+        },
+        error: function(error) {
+            // Ação em caso de erro
+            let errorMessage = "Erro ao enviar inscrição. Verifique os dados e tente novamente.";
+            
+            // Se houver erros de validação no retorno
+            if (error.responseJSON && error.responseJSON.errors) {
+                errorMessage = "";
+                for (let field in error.responseJSON.errors) {
+                    errorMessage += error.responseJSON.errors[field][0] + "\n";
+                }
+            }
+            
+            alert(errorMessage);
+            console.error(error);
+        }
+    });
+}
+
+function verificarVagas(escolaId1, escolaId2, modalidade) {
+    console.log("CSRF Token:", "{{ csrf_token() }}");
+    $.ajax({
+        url: "/verificar-vagas", // A rota correta, sem usar Blade
+        method: "POST",
+        data: {
+            escola_id_1: escolaId1,
+            escola_id_2: escolaId2,
+            modalidade: modalidade,
+            _token: "{{ csrf_token() }}" // Continua sendo necessário
+        },
+        success: function(response) {
+            exibirMensagemVagas(response.mensagem);
+            if (response.vaga_disponivel) {
+                avancarEtapa(4);
+            }
+        },
+        error: function(error) {
+            console.error(error);
+            exibirMensagemVagas("Erro ao verificar as vagas. Tente novamente.");
+        },
+        complete: function() {
+            $('#avancar-etapa-4').prop('disabled', false);
+        }
+    });
+}
+
+
+function exibirMensagemVagas(mensagem) {
+    $('#vagas-mensagem').html(mensagem);
+}
+
+function exibirConfirmacao() {
+    const dados = {
+        'Nome do Responsável': $('#nome_responsavel').val(),
+        'CPF do Responsável': $('#cpf_responsavel').val(),
+        'Nome da Criança': $('#nome_crianca').val(),
+        'Data de Nascimento da Criança': $('#data_nascimento_crianca').val(),
+        'Modalidade': $('#modalidade').val(),
+        'CEP': $('#cep_responsavel').val(),
+        'Endereço': $('#endereco_responsavel').val(),
+        'Número': $('#numero_casa_responsavel').val(),
+        'Bairro': $('#bairro_responsavel').val(),
+        '1ª Opção de Escola': $('#escola_id_1 option:selected').text(),
+        '2ª Opção de Escola': $('#escola_id_2 option:selected').text() || 'Não selecionada',
+        'Certidão de Nascimento': $('#certidao_nascimento')[0].files[0] ? $('#certidao_nascimento')[0].files[0].name : 'Nenhum arquivo selecionado',
+        'Comprovante de Residência': $('#comprovante_residencia')[0].files[0] ? $('#comprovante_residencia')[0].files[0].name : 'Nenhum arquivo selecionado'
+    };
+
+    let html = '<ul class="list-group">';
+    for (const chave in dados) {
+        html += `<li class="list-group-item"><strong>${chave}:</strong> ${dados[chave]}</li>`;
+    }
+    html += '</ul>';
+
+    $('#confirmacao-dados').html(html);
 }
 
 $(document).ready(function() {
@@ -150,5 +241,27 @@ $(document).ready(function() {
             limparEndereco();
             alert('Formato de CEP inválido.');
         }
+    });
+
+    // Listener para o botão "Avançar" da etapa 4
+    $('#avancar-etapa-4').on('click', function() {
+        const escolaId1 = $('#escola_id_1').val();
+        const escolaId2 = $('#escola_id_2').val();
+        const modalidade = $('#modalidade').val();
+
+        // Verifica se a primeira opção de escola foi selecionada
+        if (!escolaId1) {
+            alert('Por favor, selecione a primeira opção de escola.');
+            return;
+        }
+
+        // Verifica se a modalidade foi calculada
+        if (!modalidade) {
+            alert('Por favor, informe a data de nascimento da criança.');
+            return;
+        }
+
+        verificarVagas(escolaId1, escolaId2, modalidade);
+        exibirConfirmacao();
     });
 });

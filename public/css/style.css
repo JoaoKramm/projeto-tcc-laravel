@@ -1,10 +1,10 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #F2EFDF;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f2efdf;
     /* Bege Claro */
     margin: 0;
     padding: 0;
-    color: #23260F;
+    color: #23260f;
     /* Preto Amarronzado */
     display: flex;
     flex-direction: column;
@@ -19,9 +19,9 @@ body {
 }
 
 header {
-    background-color: #607EA6;
+    background-color: #607ea6;
     /* Azul Acinzentado */
-    color: #F2EFDF;
+    color: #f2efdf;
     /* Bege Claro */
     padding: 0;
 }
@@ -64,7 +64,7 @@ header h1 {
 .logout-button {
     background-color: #dc3545;
     /* Vermelho */
-    color: #F2EFDF;
+    color: #f2efdf;
     border: none;
     padding: 10px 15px;
     border-radius: 8px;
@@ -81,9 +81,9 @@ header h1 {
 }
 
 .profile-button {
-    background-color: #607EA6;
+    background-color: #607ea6;
     /* Azul Acinzentado */
-    color: #F2EFDF;
+    color: #f2efdf;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
@@ -95,11 +95,9 @@ header h1 {
 }
 
 .profile-button:hover {
-    background-color: #9BA7BF;
+    background-color: #9ba7bf;
     /* Azul Acinzentado mais claro */
 }
-
-
 
 main {
     padding: 30px 0;
@@ -118,7 +116,7 @@ main {
 .login-container h2 {
     text-align: center;
     margin-bottom: 25px;
-    color: #607EA6;
+    color: #607ea6;
 }
 
 .form-group {
@@ -128,7 +126,7 @@ main {
 .form-group label {
     display: block;
     margin-bottom: 5px;
-    color: #3B4013;
+    color: #3b4013;
 }
 
 .form-group input {
@@ -142,8 +140,8 @@ main {
 .button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #607EA6;
-    color: #F2EFDF;
+    background-color: #607ea6;
+    color: #f2efdf;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -154,7 +152,7 @@ main {
 }
 
 .button:hover {
-    background-color: #9BA7BF;
+    background-color: #9ba7bf;
 }
 
 .btn-primary {
@@ -176,7 +174,7 @@ main {
 
 .links a {
     margin: 0 10px;
-    color: #3B4013;
+    color: #3b4013;
     text-decoration: none;
 }
 
@@ -200,12 +198,12 @@ main {
 }
 
 .info-block h3 {
-    color: #3B4013;
+    color: #3b4013;
 }
 
 footer {
-    background-color: #3B4013;
-    color: #F2EFDF;
+    background-color: #3b4013;
+    color: #f2efdf;
     text-align: center;
     padding: 20px 0;
     width: 100%;
@@ -291,7 +289,7 @@ footer p {
 .register-container h2 {
     text-align: center;
     margin-bottom: 25px;
-    color: #607EA6;
+    color: #607ea6;
 }
 
 .form-group input,
@@ -304,11 +302,11 @@ footer p {
 }
 
 .button.secondary {
-    background-color: #9BA7BF;
+    background-color: #9ba7bf;
 }
 
 .button.secondary:hover {
-    background-color: #607EA6;
+    background-color: #607ea6;
 }
 
 .button-group {
@@ -357,12 +355,11 @@ footer p {
     margin: 0 auto;
 }
 
-
 .forgot-password-container h2,
 .reset-password-container h2 {
     text-align: center;
     margin-bottom: 25px;
-    color: #607EA6;
+    color: #607ea6;
 }
 
 .options {
@@ -389,17 +386,17 @@ footer p {
 
 .option-block:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-color: #607EA6;
+    border-color: #607ea6;
 }
 
 .option-block h3 {
-    color: #607EA6;
+    color: #607ea6;
     margin-top: 0;
 }
 
 .option-block p {
     font-size: 0.9rem;
-    color: #23260F;
+    color: #23260f;
 }
 
 .option-block input[type="radio"] {
@@ -418,7 +415,7 @@ footer p {
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
-    color: #F2EFDF;
+    color: #f2efdf;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -456,7 +453,7 @@ footer p {
     bottom: 20px;
     right: 20px;
     font-size: 30px;
-    color: #607EA6;
+    color: #607ea6;
     cursor: pointer;
     z-index: 1000;
 }
@@ -491,7 +488,6 @@ footer p {
     border-color: #d6e9c6;
     color: #3c763d;
 }
-
 
 .table {
     width: 100%;
@@ -578,13 +574,11 @@ footer p {
     margin-top: -28px; /* Ajustar a margem superior para subir o botão */
 }
 
-
-
 /* Estilos para os botões de upload de arquivos */
 .file-upload-label {
     display: inline-block;
     background-color: #ffffff; /* Azul Acinzentado - mesma cor dos botões */
-    color: #F2EFDF; /* Bege Claro - mesma cor do texto dos botões */
+    color: #f2efdf; /* Bege Claro - mesma cor do texto dos botões */
     padding: 10px 15px;
     border-radius: 5px; /* Borda arredondada */
     cursor: pointer;
@@ -596,7 +590,7 @@ footer p {
 }
 
 .file-upload-label:hover {
-    background-color: #9BA7BF; /* Tom mais claro no hover */
+    background-color: #9ba7bf; /* Tom mais claro no hover */
 }
 
 .file-upload-label span {
@@ -607,4 +601,21 @@ footer p {
 /* Oculta o input file padrão */
 .form-control-file {
     display: none;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+}
+
+.alert-heading {
+    font-weight: bold;
 }

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\VagaController;
+use App\Http\Controllers\InscricaoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,10 +39,17 @@ Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, '
 
 // Rotas para vagas 
 Route::get('/vagas', [App\Http\Controllers\VagasController::class, 'index'])->middleware('auth')->name('vagas');
+Route::post('/verificar-vagas', [App\Http\Controllers\InscricaoController::class, 'verificarVagas'])->middleware('auth')->name('verificar.vagas');
 
 // Rotas para inscrição 
 Route::get('/inscricao/{escola_id}/{quadro_vaga_id}', [App\Http\Controllers\InscricaoController::class, 'create'])->middleware('auth')->name('inscricao.create');
 Route::post('/inscricao', [App\Http\Controllers\InscricaoController::class, 'store'])->middleware('auth')->name('inscricao.store');
+
+// Rota para sucesso
+Route::get('/inscricao/sucesso', function () {
+    return view('inscricao_sucesso');
+})->middleware('auth')->name('inscricao.sucesso');
+
 
 // Rota para a página de redefinição de senha (customizada)
 Route::get('/password/reset', function () {
