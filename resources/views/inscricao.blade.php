@@ -7,21 +7,22 @@
     <form id="inscricao-form" method="POST" action="{{ route('inscricao.store') }}">
         @csrf
 
+        {{-- 1) Armazena escola e quadro em inputs hidden, se quiser usar depois no controller --}}
+        <input type="hidden" name="escola_id_1" value="{{ $escola->id }}">
+        <input type="hidden" name="quadro_vaga_id" value="{{ $quadroVaga->id }}">
+
         <div id="etapa-1" class="etapa">
             <h3>Dados Pessoais</h3>
-
-            <input type="hidden" name="escola_id_1" value="{{ $escola->id }}">
-            <input type="hidden" name="quadro_vaga_id" value="{{ $quadroVaga->id }}">
 
             <div class="form-group">
                 <label for="nome_responsavel">Nome do Responsável:</label>
                 <input type="text" name="nome_responsavel" id="nome_responsavel" class="form-control"
-                    value="{{ $user->nome }}" readonly>
+                       value="{{ $user->nome }}" readonly>
             </div>
             <div class="form-group">
                 <label for="cpf_responsavel">CPF do Responsável:</label>
                 <input type="text" name="cpf_responsavel" id="cpf_responsavel" class="form-control"
-                    value="{{ $user->cpf }}" readonly>
+                       value="{{ $user->cpf }}" readonly>
             </div>
             <div class="form-group">
                 <label for="nome_crianca">Nome da Criança:</label>
@@ -31,7 +32,7 @@
             <div class="form-group">
                 <label for="data_nascimento_crianca">Data de Nascimento da Criança:</label>
                 <input type="date" name="data_nascimento_crianca" id="data_nascimento_crianca" class="form-control"
-                    required>
+                       required>
                 <div class="invalid-feedback">Por favor, preencha a data de nascimento da criança.</div>
             </div>
             <div class="form-group">
@@ -58,7 +59,7 @@
             <div class="form-group">
                 <label for="numero_casa_responsavel">Número:</label>
                 <input type="text" name="numero_casa_responsavel" id="numero_casa_responsavel" class="form-control"
-                    required>
+                       required>
                 <div class="invalid-feedback">Por favor, preencha o número.</div>
             </div>
             <div class="form-group">
@@ -69,7 +70,7 @@
             <div class="form-group button-group">
                 <button type="button" class="btn btn-secondary" onclick="voltarEtapa(2)">Voltar</button>
                 <button type="button" class="btn btn-primary" id="avancar-etapa-2"
-                    onclick="avancarEtapa(2)">Avançar</button>
+                        onclick="avancarEtapa(2)">Avançar</button>
             </div>
         </div>
 
@@ -80,7 +81,7 @@
                     <span id="certidao_nascimento_file">Escolher Arquivo da Certidão de Nascimento</span>
                 </label>
                 <input type="file" name="certidao_nascimento" id="certidao_nascimento" class="form-control-file"
-                    required>
+                       required>
                 <div class="invalid-feedback">Por favor, anexe a certidão de nascimento.</div>
             </div>
             <div class="form-group">
@@ -88,7 +89,7 @@
                     <span id="comprovante_residencia_file">Escolher Arquivo do Comprovante de Residência</span>
                 </label>
                 <input type="file" name="comprovante_residencia" id="comprovante_residencia" class="form-control-file"
-                    required>
+                       required>
                 <div class="invalid-feedback">Por favor, anexe o comprovante de residência.</div>
             </div>
             <div class="form-group button-group">
@@ -98,39 +99,46 @@
         </div>
 
         <div id="etapa-4" class="etapa" style="display: none;">
-            <h3>Definir Instituição</h3>
-            <div class="form-group">
-                <label for="escola_id_1">1ª Opção de Escola:</label>
-                <select name="escola_id_1" id="escola_id_1" class="form-control" required>
-                    <option value="">Selecione a escola</option>
-                    @foreach ($escolas as $escola)
-                        <option value="{{ $escola->id }}">{{ $escola->nome }}</option>
-                    @endforeach
-                </select>
-                <div class="invalid-feedback">Por favor, selecione a primeira opção de escola.</div>
-            </div>
-            <div class="form-group">
-                <label for="escola_id_2">2ª Opção de Escola (opcional):</label>
-                <select name="escola_id_2" id="escola_id_2" class="form-control">
-                    <option value="">Selecione uma escola (opcional)</option>
-                    @foreach ($escolas as $escola)
-                        <option value="{{ $escola->id }}">{{ $escola->nome }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div id="vagas-mensagem"></div>
-            <div class="form-group button-group">
-                <button type="button" class="btn btn-secondary" onclick="voltarEtapa(4)">Voltar</button>
-                <button type="button" class="btn btn-success" id="avancar-etapa-4"
-                    onclick="avancarEtapa(4)">Avançar</button>
-            </div>
-        </div>
+    <h3>Definir Instituição</h3>
+
+    <div class="form-group">
+        <label for="escola_id_1">1ª Opção de Escola:</label>
+        <select name="escola_id_1" id="escola_id_1" class="form-control" required>
+            <option value="">Selecione a escola</option>
+            @foreach ($escolas as $esc)
+                <option value="{{ $esc->id }}" {{ $esc->id == $escola->id ? 'selected' : '' }}>
+                    {{ $esc->nome }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="escola_id_2">2ª Opção de Escola (opcional):</label>
+        <select name="escola_id_2" id="escola_id_2" class="form-control">
+            <option value="">Selecione uma escola (opcional)</option>
+            @foreach ($escolas as $esc)
+                <option value="{{ $esc->id }}">{{ $esc->nome }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <!-- Local onde exibiremos a mensagem verde em negrito -->
+    <div id="aviso-primeira-opcao" 
+         style="display: none; font-weight: bold; color: green; margin-top: 10px;">
+    </div>
+
+    <div class="form-group button-group" style="margin-top: 15px;">
+        <button type="button" class="btn btn-secondary" onclick="voltarEtapa(4)">Voltar</button>
+        <button type="button" class="btn btn-success" id="avancar-etapa-4">Avançar</button>
+    </div>
+</div>
+
 
         <div id="etapa-5" class="etapa" style="display: none;">
-            <h3>Confirmação</h3>
+           <h3>Confirmação</h3> 
             <p>Confirme os dados da inscrição:</p>
-            <div id="confirmacao-dados">
-            </div>
+            <div id="confirmacao-dados"></div>
             <div class="form-group button-group">
                 <button type="button" class="btn btn-secondary" onclick="voltarEtapa(5)">Voltar</button>
                 <button type="submit" class="btn btn-success" id="enviar-inscricao">Enviar Solicitação</button>
