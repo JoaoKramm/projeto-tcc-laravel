@@ -10,12 +10,12 @@
     <div class="block block-3">
         <h3>Acompanhar Inscrição</h3>
         <p>Verifique o status da sua inscrição.</p>
-        <a href="#" class="button">Acompanhar</a>
+        <a href="{{ route('inscricao.acompanhar') }}" class="button">Acompanhar</a>
     </div>
     <div class="block block-4">
         <h3>Documentação</h3>
         <p>Veja a lista de documentos necessários para a matrícula.</p>
-        <a href="#" class="button">Ver Documentos</a>
+        <a href="{{ route('documentos') }}" class="button">Ver Documentos</a>
     </div>
     <div class="block block-5">
         <h3>Mapa das Escolas</h3>

@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Storage;
 
 class InscricaoController extends Controller
 {
+    /**
+     * Método para exibir o formulário de inscrição.
+     */
     public function create($escola_id, $quadro_vaga_id)
     {
         // Busca a escola e a vaga selecionada (para o caso de pré-seleção)
@@ -26,16 +29,22 @@ class InscricaoController extends Controller
 
         $user = Auth::user();
 
-        // Retorna a view de inscrição, passando as variáveis necessárias
+        // Retorna a view de inscrição
         return view('inscricao', compact('escola', 'quadroVaga', 'escolas', 'modalidades', 'user'));
     }
 
+    /**
+     * Método auxiliar para calcular a idade.
+     */
     private function calcularIdade($dataNascimento, $dataLimite)
     {
         $idade = $dataLimite->diff($dataNascimento)->y;
         return $idade;
     }
 
+    /**
+     * Método auxiliar para definir a modalidade de acordo com a idade.
+     */
     private function definirModalidade($idade, $dataNasc)
     {
         $dataAtual = new \DateTime();
@@ -60,16 +69,19 @@ class InscricaoController extends Controller
             return 'Berçário';
         } elseif ($idadeCalculada >= 2 && $idadeCalculada < 3) {
             return 'Creche';
-        } elseif ($idadeCalculada >= 3 && $idadeCalculada <= 4) { // Limite superior ajustado
+        } elseif ($idadeCalculada >= 3 && $idadeCalculada <= 4) {
             return 'Pré-escola';
         } else {
             return 'Idade insuficiente';
         }
     }
 
+    /**
+     * Verifica a disponibilidade de vagas em duas escolas, de acordo com a modalidade.
+     */
     public function verificarVagas(Request $request)
     {
-        \Log::info('Dados recebidos:', $request->all());
+        Log::info('Dados recebidos:', $request->all());
         $escolaId1 = $request->input('escola_id_1');
         $escolaId2 = $request->input('escola_id_2');
         $modalidade = $request->input('modalidade');
@@ -97,7 +109,7 @@ class InscricaoController extends Controller
             $mensagem = "Primeira opção de escola não encontrada.";
         }
 
-        // Verifica a segunda opção de escola, caso a primeira não tenha vagas e uma segunda opção tenha sido escolhida
+        // Verifica a segunda opção de escola, caso a primeira não tenha vagas
         if (!$vagaDisponivel && $escolaId2) {
             $escola2 = Escola::find($escolaId2);
             if ($escola2) {
@@ -119,7 +131,7 @@ class InscricaoController extends Controller
             }
         }
 
-        // Se não houver vaga em nenhuma das opções, prepara para adicionar à fila de espera
+        // Se não houver vaga em nenhuma das opções
         if (!$vagaDisponivel) {
             $mensagem = "Não há vagas disponíveis nas escolas selecionadas. Deseja entrar na fila de espera?";
         }
@@ -130,6 +142,9 @@ class InscricaoController extends Controller
         ]);
     }
 
+    /**
+     * Armazena a inscrição no banco de dados.
+     */
     public function store(Request $request)
     {
         // Validação dos dados
@@ -145,15 +160,14 @@ class InscricaoController extends Controller
             'bairro_responsavel' => 'required|string|max:255',
             'escola_id_1' => 'required|exists:escolas,id',
             'escola_id_2' => 'nullable|exists:escolas,id',
-            // Não precisa mais validar os arquivos
         ]);
-    
-        // Criar a inscrição no banco de dados
+
+        // Cria a inscrição
         $inscricao = Inscricao::create([
             'user_id' => Auth::id(),
             'escola_id_1' => $request->input('escola_id_1'),
             'escola_id_2' => $request->input('escola_id_2'),
-            'status' => 'Fila de Espera', // Aqui você vai definir como 'Inscrito' se houver vaga disponível
+            'status' => 'Deferido', // Ajustar conforme a lógica de vagas
             'data_inscricao' => now(),
             'nome_crianca' => $request->input('nome_crianca'),
             'data_nascimento_crianca' => $request->input('data_nascimento_crianca'),
@@ -163,14 +177,33 @@ class InscricaoController extends Controller
             'endereco_responsavel' => $request->input('endereco_responsavel'),
             'numero_casa_responsavel' => $request->input('numero_casa_responsavel'),
             'bairro_responsavel' => $request->input('bairro_responsavel'),
-            'certidao_nascimento_path' => 'certidao.pdf', // Valor fixo para o caminho do arquivo
-            'comprovante_residencia_path' => 'comprovante.pdf', // Valor fixo para o caminho do arquivo
+            'certidao_nascimento_path' => 'certidao.pdf', // Exemplo de valor fixo
+            'comprovante_residencia_path' => 'comprovante.pdf',
         ]);
-    
-        // Redireciona para a página de sucesso com uma mensagem
+
+        // Redireciona para a página de sucesso
         return redirect()->route('inscricao.sucesso')
             ->with('success', 'Sua solicitação de inscrição foi realizada com sucesso!')
             ->with('nome_crianca', $inscricao->nome_crianca)
             ->with('escola', $inscricao->primeiraOpcaoEscola->nome);
+    }
+
+    /**
+     * Exibe as inscrições do usuário logado.
+     * Retorna a view acompanhar_inscricoes.blade.php
+     */
+    public function acompanhar()
+    {
+        // Identifica o usuário logado
+        $user = Auth::user();
+
+        // Busca as inscrições criadas por ele, trazendo as relações necessárias
+        $inscricoes = Inscricao::where('user_id', $user->id)
+            ->with(['primeiraOpcaoEscola','segundaOpcaoEscola','quadroVaga.modalidade'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Retorna a view com as inscrições
+        return view('acompanhar_inscricoes', compact('inscricoes'));
     }
 }

@@ -3,55 +3,83 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\VagaController;
+use App\Http\Controllers\VagasController;
 use App\Http\Controllers\InscricaoController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Rotas Principais
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
-// Rota para a página inicial (home)
+// Página inicial
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Rota para o dashboard (após o login)
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
-
-// Rota para sair
-Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-
-// Rota para perfil
-Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->middleware('auth')->name('profile');
-Route::put('/profile/{user}', [App\Http\Controllers\ProfileController::class, 'update'])->middleware('auth')->name('profile.update');
-
-// Rotas de autenticação
+// Rotas de autenticação (login, registro etc.)
 Auth::routes();
 
-// Rotas de autenticação personalizadas
-Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
+/*
+|--------------------------------------------------------------------------
+| Rotas Protegidas por 'auth'
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->group(function () {
+    // Dashboard padrão para usuários
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-// Rotas para vagas 
-Route::get('/vagas', [App\Http\Controllers\VagasController::class, 'index'])->middleware('auth')->name('vagas');
-Route::post('/verificar-vagas', [App\Http\Controllers\InscricaoController::class, 'verificarVagas'])->middleware('auth')->name('verificar.vagas');
+    // Perfil de usuário
+    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile');
+    Route::put('/profile/{user}', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 
-// Rotas para inscrição 
-Route::get('/inscricao/{escola_id}/{quadro_vaga_id}', [App\Http\Controllers\InscricaoController::class, 'create'])->middleware('auth')->name('inscricao.create');
-Route::post('/inscricao', [App\Http\Controllers\InscricaoController::class, 'store'])->middleware('auth')->name('inscricao.store');
+    // Vagas
+    Route::get('/vagas', [VagasController::class, 'index'])->name('vagas');
+    Route::post('/verificar-vagas', [InscricaoController::class, 'verificarVagas'])->name('verificar.vagas');
 
-// Rota para sucesso
-Route::get('/inscricao/sucesso', function () {
-    return view('inscricao_sucesso');
-})->middleware('auth')->name('inscricao.sucesso');
+    // Inscrições
+    Route::get('/inscricao/{escola_id}/{quadro_vaga_id}', [InscricaoController::class, 'create'])->name('inscricao.create');
+    Route::post('/inscricao', [InscricaoController::class, 'store'])->name('inscricao.store');
+
+    // Exibição de sucesso
+    Route::get('/inscricao/sucesso', function () {
+        return view('inscricao_sucesso');
+    })->name('inscricao.sucesso');
+});
+
+// Rota que exibe a lista de inscrições do usuário logado
+Route::get('/acompanhar-inscricoes', [InscricaoController::class, 'acompanhar'])
+    ->name('inscricao.acompanhar');
+
+    
+    Route::middleware(['auth'])->group(function () {
+        // ... (outras rotas)
+    
+        // Rota para exibir a documentação
+        Route::get('/documentos', function () {
+            return view('documentos'); // Nome do seu arquivo Blade
+        })->name('documentos');
+    });
+    
 
 
-// Rota para a página de redefinição de senha (customizada)
+/*
+|--------------------------------------------------------------------------
+| Rota Exclusiva para o Administrador
+|--------------------------------------------------------------------------
+*/
+Route::get('/admin/dashboard', function () {
+    // Verifica se o usuário está logado e é admin
+    if (auth()->check() && auth()->user()->tipo === 'admin') {
+        return view('dashadmin'); // Exibe a view do administrador
+    }
+    // Caso contrário, redireciona para o dashboard normal com mensagem de erro
+    return redirect('/dashboard')->with('error', 'Você não tem acesso de administrador.');
+})->name('admin.dashboard');
+
+/*
+|--------------------------------------------------------------------------
+| Rotas para Redefinição de Senha
+|--------------------------------------------------------------------------
+*/
 Route::get('/password/reset', function () {
     return view('auth.passwords.reset');
 })->name('password.request');

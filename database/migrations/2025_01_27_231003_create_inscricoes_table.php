@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('escola_id_1')->constrained('escolas')->onDelete('cascade');
             $table->foreignId('escola_id_2')->nullable()->constrained('escolas')->onDelete('cascade');
             $table->foreignId('quadro_vaga_id')->nullable()->constrained('quadro_vagas')->onDelete('set null');
-            $table->enum('status', ['Inscrito', 'Fila de Espera', 'Deferido', 'Indeferido'])->default('Fila de Espera');
+            $table->enum('status', ['Inscrito', 'Fila de Espera', 'Deferido', 'Indeferido'])->default('Deferido');
             $table->date('data_inscricao');
             $table->text('observacoes')->nullable();
             $table->string('nome_crianca');

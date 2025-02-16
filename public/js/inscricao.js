@@ -53,8 +53,8 @@ function limparEndereco() {
 function preencherEndereco(data) {
     $('#endereco_responsavel').val(data.logradouro);
     $('#bairro_responsavel').val(data.bairro);
-    // $('#cidade_responsavel').val(data.localidade); // Se você tiver um campo para cidade
-    // $('#uf_responsavel').val(data.uf); // Se você tiver um campo para UF
+    // $('#cidade_responsavel').val(data.localidade); 
+    // $('#uf_responsavel').val(data.uf); 
     $('#numero_casa_responsavel').focus(); // Move o foco para o campo de número
 }
 
@@ -63,11 +63,11 @@ function enviarInscricao() {
     var formData = new FormData(document.getElementById('inscricao-form'));
 
     $.ajax({
-        url: "{{ route('inscricao.store') }}", // Substitua pela rota correta
+        url: "{{ route('inscricao.store') }}", 
         type: "POST",
         data: formData,
-        processData: false,  // Impede que o jQuery processe os dados (necessário para FormData)
-        contentType: false,  // Impede que o jQuery defina o Content-Type (necessário para FormData)
+        processData: false,  
+        contentType: false, 
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Obtém o token CSRF do meta tag (se aplicável)
         },
@@ -75,8 +75,7 @@ function enviarInscricao() {
             // Ação em caso de sucesso
             alert("Inscrição enviada com sucesso!");
             console.log(response);
-            // Exemplo: redirecionar para outra página
-            // window.location.href = "/outra-pagina";
+      
         },
         error: function(error) {
             // Ação em caso de erro
@@ -99,13 +98,13 @@ function enviarInscricao() {
 function verificarVagas(escolaId1, escolaId2, modalidade) {
     console.log("CSRF Token:", "{{ csrf_token() }}");
     $.ajax({
-        url: "/verificar-vagas", // A rota correta, sem usar Blade
+        url: "/verificar-vagas", 
         method: "POST",
         data: {
             escola_id_1: escolaId1,
             escola_id_2: escolaId2,
             modalidade: modalidade,
-            _token: "{{ csrf_token() }}" // Continua sendo necessário
+            _token: "{{ csrf_token() }}" 
         },
         success: function(response) {
             exibirMensagemVagas(response.mensagem);
@@ -197,7 +196,7 @@ $(document).ready(function() {
 
             // Verifica se o botão clicado é o botão "Voltar para Vagas"
             if ($(this).attr('href') === "{{ route('vagas') }}") {
-                return; // Não faz nada, deixa o comportamento padrão do link funcionar
+                return; 
             }
 
             event.preventDefault();
@@ -205,7 +204,6 @@ $(document).ready(function() {
         }
     });
 
-    // Evento de blur (quando o campo perde o foco) do campo CEP
     $('#cep_responsavel').on('blur', function() {
         const cep = $(this).val().replace(/\D/g, ''); // Remove caracteres não numéricos
 
@@ -215,8 +213,7 @@ $(document).ready(function() {
             $('.btn-secondary').prop('disabled', true);
 
 
-            // Mostra um indicador de carregamento (opcional)
-            // $('#loading').show();
+         
 
             $.getJSON('https://viacep.com.br/ws/' + cep + '/json/', function(data) {
                 if (!data.erro) {

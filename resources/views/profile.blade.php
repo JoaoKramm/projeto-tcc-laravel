@@ -65,7 +65,7 @@
                         <div class="button-group">
                             <button type="button" class="button secondary">Editar</button>
                             <button type="submit" class="button" disabled>Salvar</button>
-                            <a href="{{ route('dashboard') }}" class="button secondary">Voltar</a>
+                            <a href="{{ Auth::user()->tipo === 'admin' ? route('admin.dashboard') : route('dashboard') }}" class="button">Voltar</a>
                         </div>
                     </form>
                 </div>
