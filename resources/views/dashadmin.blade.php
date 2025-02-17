@@ -17,9 +17,9 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Cadastrar Vagas</h5>
-                    <p class="card-text">Gerenciar o quadro de vagas das escolas.</p>
-                    <a href="#" class="btn btn-primary">Ir</a>
+                    <h5 class="card-title">Gerenciar Vagas</h5>
+                    <p class="card-text">Gerenciar o quadro de vagas.</p>
+                    <a href="{{ route('vagas.index') }}" class="btn btn-primary">Ir</a>
                 </div>
             </div>
         </div>

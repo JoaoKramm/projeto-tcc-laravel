@@ -75,6 +75,68 @@ Route::get('/admin/dashboard', function () {
     return redirect('/dashboard')->with('error', 'Você não tem acesso de administrador.');
 })->name('admin.dashboard');
 
+// Rota do painel admin, que você já tem
+Route::get('/admin/dashboard', function () {
+    if (auth()->check() && auth()->user()->tipo === 'admin') {
+        return view('dashadmin');
+    }
+    return redirect('/dashboard')->with('error', 'Você não tem acesso de administrador.');
+})->name('admin.dashboard');
+
+
+
+
+// ROTAS PARA CRUD DE VAGAS
+// 1) Listar
+Route::get('/admin/vagas', function() {
+    // Checa se é admin
+    if (auth()->check() && auth()->user()->tipo === 'admin') {
+        return app()->call('\App\Http\Controllers\VagaController@index');
+    }
+    return redirect('/home')->with('error', 'Você não tem acesso de administrador.');
+})->name('vagas.index');
+
+// 2) Form de criar
+Route::get('/admin/vagas/create', function() {
+    if (auth()->check() && auth()->user()->tipo === 'admin') {
+        return app()->call('\App\Http\Controllers\VagaController@create');
+    }
+    return redirect('/home')->with('error', 'Acesso negado.');
+})->name('vagas.create');
+
+// 3) Salvar (store)
+Route::post('/admin/vagas', function() {
+    if (auth()->check() && auth()->user()->tipo === 'admin') {
+        return app()->call('\App\Http\Controllers\VagaController@store');
+    }
+    return redirect('/home')->with('error', 'Acesso negado.');
+})->name('vagas.store');
+
+// 4) Form de editar
+Route::get('/admin/vagas/{id}/edit', function($id) {
+    if (auth()->check() && auth()->user()->tipo === 'admin') {
+        return app()->call('\App\Http\Controllers\VagaController@edit', ['id' => $id]);
+    }
+    return redirect('/home')->with('error', 'Acesso negado.');
+})->name('vagas.edit');
+
+// 5) Atualizar (update)
+Route::put('/admin/vagas/{id}', function($id) {
+    if (auth()->check() && auth()->user()->tipo === 'admin') {
+        return app()->call('\App\Http\Controllers\VagaController@update', ['id' => $id]);
+    }
+    return redirect('/home')->with('error', 'Acesso negado.');
+})->name('vagas.update');
+
+// 6) Excluir (destroy)
+Route::delete('/admin/vagas/{id}', function($id) {
+    if (auth()->check() && auth()->user()->tipo === 'admin') {
+        return app()->call('\App\Http\Controllers\VagaController@destroy', ['id' => $id]);
+    }
+    return redirect('/dashboard')->with('error', 'Acesso negado.');
+})->name('vagas.destroy');
+
+
 /*
 |--------------------------------------------------------------------------
 | Rotas para Redefinição de Senha

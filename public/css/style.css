@@ -290,10 +290,11 @@ footer p {
 .form-group input,
 .form-group select {
     width: calc(93% - 22px);
+    height: auto;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 
 .button.secondary {
