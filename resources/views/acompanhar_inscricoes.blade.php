@@ -14,19 +14,57 @@
                         <h5 class="card-title">Inscrição #{{ $inscricao->id }}</h5>
                         <p class="card-text">
                             <strong>Nome da Criança:</strong> {{ $inscricao->nome_crianca }}<br>
-                            <strong>Data de Nascimento:</strong> {{ \Carbon\Carbon::parse($inscricao->data_nascimento_crianca)->format('d/m/Y') }}<br>
-                            <strong>Modalidade:</strong> {{ $inscricao->quadroVaga ? $inscricao->quadroVaga->modalidade->nome : 'Aguardando' }}<br>
+                            <strong>Data de Nascimento:</strong> 
+                                {{ \Carbon\Carbon::parse($inscricao->data_nascimento_crianca)->format('d/m/Y') }}<br>
+                            
+                            <strong>Modalidade:</strong>
+                            @if($inscricao->quadroVaga)
+                                {{ $inscricao->quadroVaga->modalidade->nome }}
+                            @else
+                                Aguardando
+                            @endif
+                            <br>
+
                             <strong>Status:</strong> {{ $inscricao->status }}<br>
-                            <strong>1ª Opção de Escola:</strong> {{ $inscricao->primeiraOpcaoEscola->nome }}<br>
-                            <strong>2ª Opção de Escola:</strong> {{ $inscricao->segundaOpcaoEscola ? $inscricao->segundaOpcaoEscola->nome : 'Não selecionada' }}<br>
+
+                            @if ($inscricao->status === 'Deferido')
+                                {{-- Se o status for Deferido, exibir a 1ª opção em verde com (Inscrito),
+                                     e a 2ª em laranja com (Não relacionado) --}}
+                                <strong>1ª Opção de Escola:</strong>
+                                <span style="color: green; font-weight: bold;">
+                                    {{ $inscricao->primeiraOpcaoEscola->nome }} (Inscrito)
+                                </span>
+                                <br>
+
+                                <strong>2ª Opção de Escola:</strong>
+                                <span style="color: black; font-weight: bold;">
+                                    @if($inscricao->segundaOpcaoEscola)
+                                        {{ $inscricao->segundaOpcaoEscola->nome }} (Não relacionado)
+                                    @else
+                                        Não selecionada
+                                    @endif
+                                </span>
+                                <br>
+                            @else
+                                {{-- Caso contrário, exibir normalmente --}}
+                                <strong>1ª Opção de Escola:</strong> 
+                                {{ $inscricao->primeiraOpcaoEscola->nome }}<br>
+
+                                <strong>2ª Opção de Escola:</strong> 
+                                {{ $inscricao->segundaOpcaoEscola ? $inscricao->segundaOpcaoEscola->nome : 'Não selecionada' }}
+                                <br>
+                            @endif
+
                             @if ($inscricao->status == 'Fila de Espera')
                                 <strong>Posição na Fila:</strong>
-                                <span class="badge badge-secondary">A implementar</span>
+                                <span class="badge badge-secondary">A implementar</span><br>
                             @endif
-                            <strong>Data da Inscrição:</strong> {{ $inscricao->created_at->format('d/m/Y H:i:s') }}<br>
-                            <strong>Observações:</strong> {{ $inscricao->observacoes ?? 'Nenhuma observação' }}
+
+                            <strong>Data da Inscrição:</strong> 
+                                {{ $inscricao->created_at->format('d/m/Y H:i:s') }}
+                            <br>
+                            {{-- Observações removidas, conforme solicitado --}}
                         </p>
-                        {{-- Adicione botões para editar, cancelar, etc., se necessário --}}
                     </div>
                 </div>
             @endforeach

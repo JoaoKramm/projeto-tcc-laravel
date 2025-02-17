@@ -257,8 +257,6 @@ $(document).ready(function() {
             return;
         }
 
-        // Removemos a chamada assíncrona ao /verificar-vagas
-        // Em vez disso, basta chamar a confirmação e avançar
         exibirConfirmacao();
         avancarEtapa(4);
     });

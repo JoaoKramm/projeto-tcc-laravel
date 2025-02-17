@@ -1,0 +1,89 @@
+/* ============================= */
+/*        layout.css            */
+/* ============================= */
+
+/* Header */
+header {
+    background-color: #607ea6; /* Azul Acinzentado */
+    color: #f2efdf;            /* Bege Claro */
+    padding: 0;
+}
+
+header .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px;
+}
+
+header .logo-space {
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+/* Título principal do header */
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    flex-grow: 1;
+    text-align: center;
+}
+
+/* Header buttons, logout, profile, etc. */
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espaçamento entre os botões */
+}
+
+.logout-button {
+    background-color: #dc3545; /* Vermelho */
+    color: #f2efdf;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logout-button:hover {
+    background-color: #c82333; /* Vermelho mais escuro no hover */
+}
+
+.profile-button {
+    background-color: #607ea6; /* Azul Acinzentado */
+    color: #f2efdf;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none; /* Remove o sublinhado */
+    transition: background-color 0.3s ease;
+}
+
+.profile-button:hover {
+    background-color: #9ba7bf; /* Azul Acinzentado mais claro */
+}
+
+/* Footer */
+footer {
+    background-color: #3b4013;
+    color: #f2efdf;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Espaçamento no main */
+main {
+    padding: 30px 0;
+    flex: 1;
+}

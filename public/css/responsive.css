@@ -1,0 +1,44 @@
+/* ============================= */
+/*     responsive.css           */
+/* ============================= */
+
+/* Responsividade para telas até 767px */
+@media (max-width: 767px) {
+    .login-container {
+        margin: 20px auto;
+    }
+    .info-block {
+        margin-bottom: 20px;
+    }
+    .main-blocks {
+        flex-direction: column;
+    }
+    .block {
+        flex: 0 0 100%;
+    }
+}
+
+/* Responsividade para telas até 480px */
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem;
+        margin-top: 0;
+    }
+    .form-group input {
+        width: 90%;
+    }
+    .header-content {
+        padding: 10px;
+    }
+    .logo-space {
+        margin-right: 10px;
+    }
+    .profile-button,
+    .logout-button {
+        margin-left: 0;
+        margin-top: 10px;
+        width: auto;
+        display: inline-block;
+    }
+    /* E assim por diante... */
+}

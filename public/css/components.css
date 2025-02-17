@@ -1,0 +1,212 @@
+/* ============================= */
+/*      components.css          */
+/* ============================= */
+
+/* Botões genéricos */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #607ea6;
+    color: #f2efdf;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Removendo sublinhado dos links */
+}
+
+.button:hover {
+    background-color: #9ba7bf;
+}
+
+/* Classes derivadas, ex. .button.secondary */
+.button.secondary {
+    background-color: #9ba7bf;
+}
+.button.secondary:hover {
+    background-color: #607ea6;
+}
+
+/* Estilos de formulários */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #3b4013;
+}
+
+.form-group input {
+    width: 93%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* alertas */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.alert-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+}
+
+/* login-container */
+.login-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #607ea6;
+}
+
+/* register-container */
+.register-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.register-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #607ea6;
+}
+
+/* .button-group, .error, .file-upload-label, etc. */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.error {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+/* info-blocks */
+.info-blocks {
+    background-color: #e9ecef65;
+    padding: 30px 0;
+    margin-top: 40px;
+}
+.info-block {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #e9ecef96;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.info-block h3 {
+    color: #3b4013;
+}
+
+/* Tabelas */
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+.table th,
+.table td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+.table th {
+    background-color: #f2f2f2;
+}
+
+/* Classes utilitárias de btn */
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-decoration: none; /* remove sublinhado */
+}
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/* Exemplo para .block, .main-blocks, etc. */
+.main-blocks {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+.block {
+    flex: 0 0 calc(23% - 10px);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    color: #f2efdf;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* components.css */
+
+.block-1 {
+    background-color: #fd810d; /* Laranja */
+}
+
+.block-3 {
+    background-color: #20c997; /* Verde */
+}
+
+.block-4 {
+    background-color: #358bdc; /* Azul */
+}
+
+.block-5 {
+    background-color: #5859b1e8; /* Roxo */
+}
+

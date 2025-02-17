@@ -75,11 +75,6 @@ header h1 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.logout-button:hover {
-    background-color: #c82333;
-    /* Vermelho mais escuro no hover */
-}
-
 .profile-button {
     background-color: #607ea6;
     /* Azul Acinzentado */
@@ -130,7 +125,7 @@ main {
 }
 
 .form-group input {
-    width: 93%;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -138,7 +133,8 @@ main {
 }
 
 .button {
-    display: inline-block;
+    display: block;       /* Era inline-block; agora é block */
+    margin: 0 auto;       /* Centraliza horizontalmente */
     padding: 10px 20px;
     background-color: #607ea6;
     color: #f2efdf;
@@ -148,7 +144,6 @@ main {
     font-size: 1rem;
     transition: background-color 0.3s ease;
     text-decoration: none;
-    /* Removendo sublinhado dos links */
 }
 
 .button:hover {
@@ -243,7 +238,7 @@ footer p {
     }
 
     .form-group input {
-        width: 90%;
+        width: 100%;
     }
 
     .header-content {
@@ -294,11 +289,11 @@ footer p {
 
 .form-group input,
 .form-group select {
-    width: calc(100% - 22px);
+    width: calc(93% - 22px);
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 1.3rem;
 }
 
 .button.secondary {
@@ -313,7 +308,7 @@ footer p {
     display: flex;
     justify-content: center; /* Centraliza os botões */
     margin-top: 20px; /* Espaçamento acima dos botões */
-    gap: 15px; /* Espaço entre os botões */
+    gap: 14px; /* Espaço entre os botões */
 }
 
 .error {
@@ -601,6 +596,12 @@ footer p {
 /* Oculta o input file padrão */
 .form-control-file {
     display: none;
+}
+
+.form-control option {
+    white-space: normal;
+    width: 100%;
+    max-width: 600px; 
 }
 
 .alert {
